@@ -11,7 +11,7 @@ import (
 func main() {
 	lines, err := read_to_array("input.txt")
 	if err != nil {
-		fmt.Println("Error reading input:", err)
+		log.Fatal("Error reading input:", err)
 	}
 	fmt.Printf("Found %d increases.\n", increases(lines))
 	grouped := grouped_by(3, lines)
@@ -20,7 +20,7 @@ func main() {
 
 // Read from a file and coerce into an Array.
 func read_to_array(filename string) ([]int, error) {
-	file, err := os.Open("input.txt")
+	file, err := os.Open(filename)
 	if err != nil {
 		return nil, err
 	}
