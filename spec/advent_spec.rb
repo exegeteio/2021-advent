@@ -2,6 +2,7 @@
 
 require './loader'
 
+# Store the examples from the AoC website.
 EXEMPLARS = {
   day_one: {
     part_one: 7,
@@ -21,12 +22,15 @@ EXEMPLARS = {
   }
 }.freeze
 
+# Load in the spec data provided.
 Loader.load('spec/data/*.txt').each do |instance|
+  # Describe this specific class
   RSpec.describe instance.klass do
+    # Loop over the two parts to each question and build expectations.
     %i[part_one part_two].each do |part|
       it part do
         expect(instance.build.send(part)).to be(EXEMPLARS.dig(instance.ref, part))
       end
     end
-  end
-end
+  end # /RSpec
+end # /Loader

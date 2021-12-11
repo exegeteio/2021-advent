@@ -5,6 +5,7 @@
 class DayTwo
   def initialize(readings)
     @readings = readings
+    # Initialize some default values.
     @depth = 0
     @position = 0
     @aim = 0
