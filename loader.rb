@@ -9,7 +9,7 @@ class Loader
     Dir.glob(glob).map do |datafile|
       basename = File.basename(datafile, '.txt')[3..]
       contents = File.readlines(datafile, chomp: true).map(&:strip)
-      require "./#{basename}"
+      require "./days/#{basename}"
       klass = basename.classify.constantize
       Instance.new(klass, contents, basename.split(/\W/).map(&:titleize).join, basename.to_sym)
     end
