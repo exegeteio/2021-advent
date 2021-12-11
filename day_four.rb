@@ -1,17 +1,19 @@
 # frozen_string_literal: true
+#
+require 'matrix'
 
 # Advent of Code - Day 4
 # Playing bingo with a giant squid.
 class DayFour
+  # Constant matrix size for bingo boards, 5x5.
+  MATRIX_SIZE = 5
+
   def initialize(input)
     @draws = input.shift.strip.split(/\D/).map(&:to_i)
     @boards = []
-    input.each do |line|
-      if line.blank?
-        @boards << Board.new
-        next
-      end
-      @boards.last << line.strip.split(/\s+/).map(&:to_i)
+    board_lines = []
+    input.select(&:present?).map{|line| line.split(/\s+/).map(&:to_i)}.each_slice(MATRIX_SIZE) do |rows|
+      @boards << Board[*rows]
     end
   end
 
@@ -40,48 +42,22 @@ class DayFour
     last_winner.score(last_drawn)
   end
 
-  class Board
-    def initialize
-      @values = []
-      @columns = 5
-      @rows = 5
-      @marked = {
-        columns: Array.new(5, 0),
-        rows: Array.new(5, 0),
-        sum: 0
-      }
-    end
-
-    def <<(row)
-      @values += row
+  class Board < Matrix
+    def columns
+      rows.transpose
     end
 
     def draw!(needle)
-      loc = @values.index(needle)
-      if loc.present?
-        column = loc % @rows
-        row = (loc - column) / @rows
-        @marked[:columns][column] += 1
-        @marked[:rows][row] += 1
-        @marked[:sum] += needle
-      end
-      loc.present?
-    end
-
-    def score(last_draw)
-      (@values.sum - @marked[:sum]) * last_draw
+      @drawn ||= []
+      @drawn << needle
     end
 
     def winner?
-      column_winner? || row_winner?
+      rows.any? { |row| (row - @drawn).empty? } || columns.any? { |row| (row - @drawn).empty? }
     end
 
-    def column_winner?
-      @marked[:columns].max == @columns
-    end
-
-    def row_winner?
-      @marked[:rows].max == @rows
+    def score(needle)
+      needle * (rows.flatten - @drawn).sum
     end
   end
 end
