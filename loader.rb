@@ -8,7 +8,7 @@ class Loader
     # Loop over the data directory.
     Dir.glob(glob).map do |datafile|
       basename = File.basename(datafile, '.txt')[3..]
-      contents = File.readlines(datafile).map(&:chomp)
+      contents = File.readlines(datafile, chomp: true).map(&:strip)
       require "./#{basename}"
       klass = basename.classify.constantize
       Instance.new(klass, contents, basename.split(/\W/).map(&:titleize).join, basename.to_sym)
