@@ -17,7 +17,7 @@ EXEMPLARS = {
   },
   day_four: {
     part_one: 4512,
-    part_two: :fixme
+    part_two: 1924
   }
 }.freeze
 

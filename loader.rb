@@ -18,7 +18,7 @@ class Loader
   # Hold info about each instance.
   Instance = Struct.new(:klass, :contents, :title, :ref) do
     def build
-      klass.new(contents)
+      klass.new(contents.clone)
     end
   end
 end
