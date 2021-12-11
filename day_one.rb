@@ -4,7 +4,7 @@
 # Count the number of increases in a list of numbers from a text file.
 class DayOne
   def initialize(readings)
-    @readings = readings
+    @readings = readings.map(&:to_i)
   end
 
   def part_one

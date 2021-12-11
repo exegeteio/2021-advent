@@ -55,10 +55,10 @@ PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
-  activesupport (~> 6.1)
-  rspec (~> 3.10)
-  rubocop (~> 1.23)
-  rubocop-rspec (~> 2.6)
+  activesupport
+  rspec
+  rubocop
+  rubocop-rspec
 
 BUNDLED WITH
    2.2.22

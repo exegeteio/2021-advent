@@ -1,19 +1,18 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require './day_one'
-require './day_two'
-require './day_three'
+require 'rubygems'
+require 'bundler/setup'
+require 'active_support/all'
+require './loader'
 
-day_one = DayOne.new(
-  File.readlines('day_one_data.txt').map(&:to_i)
-)
-puts "Day One Part One:  #{day_one.part_one}"
-puts "Day One Part Two:  #{day_one.part_two}"
+PARTS = {
+  part_one: 'One',
+  part_two: 'Two'
+}.freeze
 
-day_two = DayTwo.new(
-  File.readlines('day_two_data.txt')
-)
-puts "Day Two Part One:  #{day_two.part_one}"
-puts "Day Two Part Two:  #{day_two.part_two}"
-
+Loader.load('data/*.txt').each do |instance|
+  PARTS.each_pair do |method, label|
+    puts "#{instance.title} Part #{label}: #{instance.build.send(method)}"
+  end
+end

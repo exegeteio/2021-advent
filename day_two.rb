@@ -5,10 +5,12 @@
 class DayTwo
   def initialize(readings)
     @readings = readings
+    @depth = 0
+    @position = 0
+    @aim = 0
   end
 
   def part_one
-    reset
     @readings.each do |reading|
       (direction, distance) = reading.split
       move(direction.to_sym, distance.to_i)
@@ -17,7 +19,6 @@ class DayTwo
   end
 
   def part_two
-    reset
     @readings.each do |reading|
       (direction, distance) = reading.split
       move_or_aim(direction.to_sym, distance.to_i)
@@ -26,12 +27,6 @@ class DayTwo
   end
 
   private
-
-  def reset
-    @depth = 0
-    @position = 0
-    @aim = 0
-  end
 
   def move(direction, distance)
     case direction
